@@ -1,3 +1,6 @@
+npm install multer
+npm install react-router-dom
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
