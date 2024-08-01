@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navigation from './components/Navigation';
+import UserInfo from './components/UserInfo';
+import Accomplished from './pages/Accomplished';
+import LTGoals from './pages/LTGoals';
+import Todo from './pages/Todo';
+import { quotes } from './components/quote';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const date = new Date();
+  const dayOfYear = Math.floor(
+    (date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24
+  );
+  const quoteOfTheDay = quotes[dayOfYear % quotes.length];
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="container-fluid lining"></div>
+      <div className="container-fluid header">
+        <div className="user">
+          <h1 className="title">QuickTo-Do</h1>
+          <UserInfo />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <Navigation />
+      <div className="container">
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Todo />} />
+            <Route path="/ltgoals" element={<LTGoals />} />
+            <Route path="/accomplished" element={<Accomplished />} />
+          </Routes>
+        </div>
+        <div className="quote-container">
+          <div className="quote">
+            <p className="title qt">Quote of the Day</p>
+            <p>"{quoteOfTheDay}"</p>
+          </div>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
