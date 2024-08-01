@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './components.css';
+import profilePlaceholder from '../assets/profilePic.png';
 
 const UserInfo = () => {
   const [isEditingName, setIsEditingName] = useState(false);
@@ -97,20 +98,16 @@ const UserInfo = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfilePic(reader.result);
-      };
-      reader.readAsDataURL(file);
+      const newFile = new File([file], `${Date.now()}.png`, { type: 'image/png' });
+      setFile(newFile);
     }
   };
-
+  
   const handleFileUpload = () => {
     if (file) {
       const formData = new FormData();
       formData.append('profilePic', file);
-
+  
       fetch('http://localhost:5000/upload', {
         method: 'POST',
         body: formData,
@@ -118,17 +115,17 @@ const UserInfo = () => {
       .then(response => response.json())
       .then(data => {
         console.log('File upload response:', data);
-        setProfilePic(data.profilePicUrl);
-        fetchUserData(); // Re-fetch user data to update the profile picture URL
+        setProfilePic(data.profilePicUrl); 
+        fetchUserData(); 
       })
       .catch(error => console.error('Error:', error));
     }
   };
-
+  
   const handleProfilePicClick = () => {
     fileInputRef.current.click();
   };
-
+  
   useEffect(() => {
     if (file) {
       handleFileUpload();
@@ -137,7 +134,7 @@ const UserInfo = () => {
 
   return (
     <div className="info">
-      <div>
+      <div className="info-text">
         {isEditingName ? (
           <input
             type="text"
@@ -146,9 +143,10 @@ const UserInfo = () => {
             onBlur={handleNameBlur}
             autoFocus
             placeholder="Input your name"
+            className='input-user'
           />
         ) : (
-          <h3 onClick={handleNameClick}>{name || "Input your name"}</h3>
+          <h3 onClick={handleNameClick} className="info-message">{name || "Input your name"}</h3>
         )}
         {isEditingMotto ? (
           <input
@@ -158,12 +156,13 @@ const UserInfo = () => {
             onBlur={handleMottoBlur}
             autoFocus
             placeholder="Input your favorite quote in life"
+            className='input-user'
           />
         ) : (
-          <h4 onClick={handleMottoClick}>{motto || "Input your favorite quote in life"}</h4>
+          <h4 onClick={handleMottoClick} className="info-message">{motto || "Input your favorite quote in life"}</h4>
         )}
-        <p>{currentTime}</p>
-        <p>{currentDate}</p>
+        <p className="info-message">{currentTime}</p>
+        <p className="info-message">{currentDate}</p>
       </div>
       <div>
         <input 
@@ -176,14 +175,16 @@ const UserInfo = () => {
         <div className="profile-pic-container" onClick={handleProfilePicClick}>
           {profilePic ? (
             <img 
-              src={profilePic} 
+              src={`http://localhost:5000${profilePic}`} 
               alt="Profile" 
               className="profile-pic" 
             />
           ) : (
-            <div className="profile-pic-placeholder">
-              <span>+</span>
-            </div>
+            <img 
+              src={profilePlaceholder} 
+              alt="Profile" 
+              className="profile-pic" 
+            />
           )}
         </div>
       </div>

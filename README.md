@@ -1,5 +1,8 @@
 npm install multer
 npm install react-router-dom
+npm install react-bootstrap bootstrap react-bootstrap-icons
+npm install react-datepicker date-fns
+
 
 # React + Vite
 

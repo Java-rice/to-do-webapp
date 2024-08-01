@@ -5,7 +5,7 @@ import './components.css';
 const Navigation = () => {
   return (
     <div>
-      <ul className="nav nav-pills nav-tabs">
+      <ul className="nav nav-pills">
         <li className="nav-item">
           <NavLink className="nav-link" to="/" end>
             To Do List

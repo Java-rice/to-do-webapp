@@ -20,16 +20,16 @@
   .lining {
     width: 100%;
     height: 7%;
-    position: fixed; /* Change to fixed to keep it at the top */
+    position: fixed; 
     background: linear-gradient(90deg, #F8FFFE 0%, #5E1B89 100%);
-    top: 0; /* Adjust to start from the very top */
-    z-index: 1; /* Ensure it is on top */
+    top: 0; 
+    left: 0;
+    z-index: 1; 
   }
   
   .header {
     width: 100%;
     box-sizing: border-box;
-    background-color: #f8f9fa;
     z-index: 0;
     margin-top: 8%;
     margin-bottom: 4%;
@@ -45,6 +45,7 @@
   }
   
   .user {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -53,9 +54,29 @@
   .container {
     display: flex;
     flex-direction: column;
-    min-height: 80vh; /* Full viewport height */
+    min-height: 80vh;
+    max-width: 100%;
+    margin-top: 1%;
+    padding-left: 0;
   }
   
-  .qoute{
+  .quote-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+  }
+  
+  .quote {
     text-align: center;
+    padding-bottom: 80px;
+    padding-top: 50px;
+  }
+
+  .qt{
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 52.75px;
+    text-align: center;
+    color: #5E1B89;
   }
